@@ -1,7 +1,4 @@
-//get data
-db.collection('guides').get().then(snapshot=>{
-   setUpGuides(snapshot.docs)
-})
+
 //dignup
 const signupform = document.querySelector('#signup-form');
 signupform.addEventListener('submit',(e)=>{
@@ -44,9 +41,15 @@ loginForm.addEventListener('submit' , (e)=>{
 })
 auth.onAuthStateChanged(function (user) {
     if(user){
-        console.log('user logged in:',user)
+   //get data
+   alert("認証成功！")
+    db.collection('guides').get().then(snapshot=>{
+    setUpGuides(snapshot.docs)
+    setupUI(user)
+ })
     }else{
-        console.log("user logout")
+        setupUI()
+       setUpGuides([])
     }
 });
 
